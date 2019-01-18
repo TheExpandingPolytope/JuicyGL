@@ -1,0 +1,7 @@
+#version 150 core
+in float bary_Coord;
+in vec3 bone_Color;
+void main()
+{
+	gl_FragColor =vec4(bone_Color, bary_Coord);
+}

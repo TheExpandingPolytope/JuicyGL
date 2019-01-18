@@ -1,0 +1,16 @@
+#version 150 core
+
+in vec3 vertex_pos;
+in vec3 barycentric_coord;
+
+out vec3 bary_coord;
+uniform mat4 perspective;                                      
+uniform mat4 view;  
+uniform mat4 model;
+
+void main()
+{
+	
+	gl_Position = perspective*view*model*vec4(vertex_pos, 1.0);
+	bary_coord = barycentric_coord;
+}

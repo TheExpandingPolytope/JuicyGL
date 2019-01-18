@@ -1,0 +1,6 @@
+#version 150 core
+
+void main()
+{
+	gl_FragColor = vec4(0.13f,0.38f,0.65f,1.0f);
+}

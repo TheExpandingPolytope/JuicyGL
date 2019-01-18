@@ -1,0 +1,77 @@
+#version 150 core
+
+layout(triangles) in;
+layout(triangle_strip, max_vertices = 21) out;
+
+uniform vec3 min;
+uniform vec3 max;
+
+ uniform mat4 perspective;
+ uniform mat4 view;
+void main()
+{
+	gl_Position = perspective*view*vec4(max.x, max.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, max.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, min.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x, min.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x, max.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, max.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, max.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, min.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, min.y, max.z, 1.0);
+	EmitVertex();
+	
+	gl_Position = perspective*view*vec4(min.x, max.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, max.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x, max.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x, min.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, min.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(min.x, max.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x, max.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x,max.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x,min.y, max.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x, min.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x, max.y, min.z, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(max.x,max.y, max.z, 1.0);
+	EmitVertex();
+
+	EndPrimitive();
+}

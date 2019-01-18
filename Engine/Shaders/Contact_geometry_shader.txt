@@ -1,0 +1,22 @@
+#version 150 core
+
+layout(triangles) in;
+layout(line_strip, max_vertices = 21) out;
+
+uniform vec3 p;
+uniform vec3 n;
+uniform vec3 ea;
+uniform vec3 eb;
+
+ uniform mat4 perspective;
+ uniform mat4 view;
+void main()
+{
+	gl_Position = perspective*view*vec4(p, 1.0);
+	EmitVertex();
+
+	gl_Position = perspective*view*vec4(p+n, 1.0);
+	EmitVertex();
+
+	EndPrimitive();
+}

@@ -1,0 +1,44 @@
+#version 150 core
+const int NUM_OF_BONES = 40;
+
+in vec3 vert_position;
+in vec3 vert_weights;
+in vec3 vert_boneIndices;
+in vec3 bary_Coordinates;
+out vec3 bary_Coord;
+out vec3 color;
+
+struct bone
+{
+	mat4 endPose;
+	mat4 invBindPose;
+	vec3 color;
+};
+
+uniform bone bones[NUM_OF_BONES];
+uniform mat4 perspective;
+uniform mat4 view;
+
+
+void main()
+{
+	bone currentBone;
+	float currentWeight;
+	vec4 vertex_position = vec4(0);
+	vec3 bone_Color = vec3(0);
+	for(int i=0; i<3; i++)
+	{
+		if(vert_boneIndices[i] >=0){
+		currentBone = bones[int(vert_boneIndices[i])];
+		currentWeight = vert_weights[i];
+		vertex_position += currentBone.endPose * currentBone.invBindPose * vec4(vert_position,1.0) * currentWeight;
+		bone_Color += currentBone.color * currentWeight;
+		}
+	}
+	
+
+	bary_Coord = bary_Coordinates;
+	color = bone_Color;
+	gl_Position = perspective*view*vertex_position;
+	
+}

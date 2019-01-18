@@ -1,0 +1,19 @@
+#version 150 core
+
+in vec3 vertex_pos;
+in vec3 normal;
+in vec3 texture_coords;
+
+out vec3 WorldPos;
+out vec2 TexCoords;
+out vec3 Normal;
+
+uniform mat4 view;
+uniform mat4 perspective;
+
+void main()
+{
+	WorldPos = vertex_pos;
+	Normal = normal;
+	gl_Position = perspective*view*vec4(vertex_pos,1.0f);
+}

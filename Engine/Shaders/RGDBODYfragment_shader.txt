@@ -1,0 +1,13 @@
+#version 150 core
+
+in vec3 bary_coord;
+
+void main()
+{ 
+	if(any(lessThan(bary_coord, vec3(.006))))
+	{
+	gl_FragColor = vec4(25/sqrt(2937),34/sqrt(2937),34/sqrt(2937),1.0);
+	}
+	else
+	gl_FragColor = vec4(25/sqrt(2937),34/sqrt(2937),34/sqrt(2937),0.13);
+}

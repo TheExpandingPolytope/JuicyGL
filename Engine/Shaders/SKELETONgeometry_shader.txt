@@ -1,0 +1,58 @@
+#version 150 core
+
+layout(triangles) in;
+layout(line_strip, max_vertices = 100) out;
+
+const int NUM_OF_BONES = 40;
+struct Bone
+{
+	//the head of the bone is derived from this
+	mat4 endPose;
+	//three different tails are derived from the endPoses of these three children
+	vec3 children;
+	//colors of each bone
+	vec3 color;
+};
+
+uniform Bone bones[NUM_OF_BONES];
+uniform mat4 perspective;
+uniform mat4 view;
+
+out float bary_Coord;
+out vec3 bone_Color;
+
+void main()
+{
+
+	for(int i = 0; i < NUM_OF_BONES; i++)
+	{
+		Bone b = bones[i];
+		vec3 head;
+		mat3 tails;
+		//setting value of head
+		head = vec3(b.endPose[3].xyz);
+		//setting value of tails
+		if(int(b.children.x) >=0){ Bone c1 = bones[int(b.children.x)]; 
+		tails[0] = vec3(c1.endPose[3].xyz);}
+		if(int(b.children.y) >=0){ Bone c2 = bones[int(b.children.y)]; 
+		tails[1] = vec3(c2.endPose[3].xyz);}
+		if(int(b.children.z) >=0) {Bone c3 = bones[int(b.children.z)];
+		tails[2] = vec3(c3.endPose[3].xyz);}
+
+		for(int j = 0; j < 3; j++)
+		{
+			if(int(b.children[j]) >=0){
+			gl_Position = perspective*view*vec4(head, 1.0);
+			bone_Color = b.color;
+			bary_Coord = 1;
+			EmitVertex();
+			gl_Position = perspective*view*vec4(tails[j], 1.0);
+			bone_Color = b.color;
+			bary_Coord = 0;
+			EmitVertex();
+			EndPrimitive();}
+		}
+	}
+
+	
+}
